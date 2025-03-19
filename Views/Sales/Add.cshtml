@@ -1,0 +1,48 @@
+﻿@model Sales // call the sales model
+
+@{
+    ViewData["Title"] = "Add Sales";
+}
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+} @*added the scripts*@
+
+    <h2 class="p-2">Add Sales</h2> @*header*@
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div> @*validation errors based only on the Sales model*@
+
+    <form asp-action="Add" method="post">
+        @*action for the add controller*@
+        <div class="mb-2">
+            <label asp-for="Quarter" class="form-label">Quarter</label> @*date label*@
+            <input asp-for="Quarter" class="form-control" type="text" />
+            <span asp-validation-for="Quarter" class="text-danger"></span> @*valiation error for the date property from the temp model*@
+        </div>
+        <div class="mb-2">
+            <label asp-for="Year" class="form-label">Year</label> @*low temp label*@
+            <input asp-for="Year" class="form-control" />
+            <span asp-validation-for="Year" class="text-danger"></span> @*valiation error for the low property from the temp model*@
+
+        </div>
+        <div class="mb-2">
+            <label asp-for="Amount" class="form-label">Amount</label> @*high temp label*@
+            <input asp-for="Amount" class="form-control" />
+            <span asp-validation-for="Amount" class="text-danger"></span> @*validation error for the high property from the temp model*@
+
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="EmployeeId" class="form-label">Employee</label>
+            <select asp-for="EmployeeId" class="form-control"
+                asp-items="@(new SelectList(ViewBag.Employees, "EmployeeId", "Fullname"))">
+                <option value="0">-- Select Employee --</option>
+            </select>
+            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+        </div>
+        <div class="mb-2">
+            <button type="submit" class="btn btn-primary mr-2">Add</button> @*button for sumbit*@
+            <a asp-action="Index" class="btn btn-outline-primary">Cancel</a> @* button for the cancel to go back to the index page *@
+        </div>
+    </form>

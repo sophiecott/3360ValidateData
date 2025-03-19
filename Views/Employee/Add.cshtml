@@ -1,0 +1,61 @@
+﻿@model Employee // call the Employee model
+
+@{
+    ViewData["Title"] = "Add Employee";
+}
+
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+} @*added the scripts*@
+
+    <h2 class="p-2">Add Employee</h2> @*header*@
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div> @*validation errors based only on the Employee model*@
+
+    <form asp-action="Add" method="post">
+        @*action for the add controller*@
+        <div class="mb-2">
+            <label asp-for="Firstname" class="form-label"></label> @*firstname label*@
+            <input asp-for="Firstname" class="form-control" />
+            <span asp-validation-for="Firstname" class="text-danger"></span> @*valiation error for the firstname property from the employee model*@
+        </div>
+        <div class="mb-2">
+            <label asp-for="Lastname" class="form-label"></label> @*last name label*@
+            <input asp-for="Lastname" class="form-control" />
+            <span asp-validation-for="Lastname" class="text-danger"></span> @*valiation error for the lastname property from the employee model*@
+
+        </div>
+        <div class="mb-2">
+            <label asp-for="DOB" class="form-label"></label> @*DOB label*@
+            <input asp-for="DOB" class="form-control" type="text" />
+            <span asp-validation-for="DOB" class="text-danger"></span> @*validation error for the dob property from the employee model*@
+
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="DateOfHire" class="form-label"></label> @*dateofhire label*@
+            <input asp-for="DateOfHire" class="form-control" type="text" />
+            <span asp-validation-for="DateOfHire" class="text-danger"></span> @*validation error for the dateofhire property from the employee model*@
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="ManagerId" class="col-form-label col-md-2"></label>
+        </div>
+
+        <div class="col-md-4">
+            <select asp-for="ManagerId" class="form-select"
+                    asp-items="@(new SelectList(ViewBag.Employees, "EmployeeId", "Fullname"))">
+                <option value="0"></option>
+            </select>
+        </div>
+
+        <div class="col">
+            <span asp-validation-for="ManagerId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-2">
+            <button type="submit" class="btn btn-primary mr-2">Add</button> @*button for sumbit*@
+            <a asp-action="Index" class="btn btn-outline-primary">Cancel</a> @* button for the cancel to go back to the index page *@
+        </div>
+    </form>
